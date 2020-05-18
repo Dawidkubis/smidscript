@@ -26,8 +26,6 @@ I might create a compiler in the future.
 + `$`
 + `..`
 + `+-*/`
-+ `[`
-+ `]`
 + `(`
 + `)`
 + `@`
@@ -42,10 +40,10 @@ I might create a compiler in the future.
 The character is then accessible with a call `$var`, where "var" is its name.
 + `..` is used to specify either: a range of numbers/letters or an infinite range or,
 if put after `$` that multiple characters shall be matched. Note that a range of numbers
-between 0 and 5 looks like this `[0][1][2][3][4][5]`.
-+ `+-*/` are arithmetic operators. They can only be used inside `[]`. 
-+ `[]` are either: values or specify that math will be done.
-+ `()` are used to focus evaluation.
+between 0 and 5 looks like this `(0)(1)(2)(3)(4)(5)`.
++ `+-*/` are arithmetic operators. They can only be used between numbers in brackets. 
++ `()` are used to focus evaluation. They can also be used as values, since they are matched
+as a single value.
 + `@` is used as a placeholder for user input from stdin.
 + `.` when used directly after `:` specifies that the output of that function is
 to be printed.
