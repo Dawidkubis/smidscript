@@ -36,7 +36,7 @@ The language will probably be lazy, so that infinite arrays are possible.
 + `\` is a backslash, used as an escape character.
 + `:` divides the match pattern from the output.
 + `$` is used with a letter afterwards to indicate that any character shall be matched.
-The character is then accessible with a call `$var`, where "var" is it's name.
+The character is then accessible with a call `$var`, where "var" is its name.
 + `..` is used to specify either: a range of numbers/letters or an infinite range or,
 if put after `$` that multiple characters shall be matched. Note that a range of numbers
 between 0 and 5 looks like this `[0][1][2][3][4][5]`.
