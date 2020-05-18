@@ -31,7 +31,7 @@ The language will probably be lazy, so that infinite arrays are possible.
 + `.`
 
 ### Token explanation
-+ `[a-zA-Z0-9]` are values
++ `a-zA-Z0-9` are values
 + `|` is a pipe, it's used to pass outputs to another function.
 + `\` is a backslash, used as an escape character.
 + `:` divides the match pattern from the output.
@@ -40,7 +40,7 @@ The character is then accessible with a call `$var`, where "var" is its name.
 + `..` is used to specify either: a range of numbers/letters or an infinite range or,
 if put after `$` that multiple characters shall be matched. Note that a range of numbers
 between 0 and 5 looks like this `[0][1][2][3][4][5]`.
-+ `[+-*/]` are arithmetic operators. They can only be used inside `[]`. 
++ `+-*/` are arithmetic operators. They can only be used inside `[]`. 
 + `[]` are either: values or specify that math will be done.
 + `()` are used to focus evaluation.
 + `@` is used as a placeholder for user input from stdin.
