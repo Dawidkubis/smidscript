@@ -4,7 +4,6 @@ use logos::Logos;
 
 #[derive(Logos, Debug, PartialEq)]
 enum Token {
-
 	#[regex(r"[a-zA-Z0-9]")]
 	Val,
 
@@ -52,7 +51,7 @@ enum Token {
 
 	#[token(".")]
 	Dot,
-	
+
 	#[error]
 	Error,
 }
