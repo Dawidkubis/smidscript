@@ -49,3 +49,10 @@ enum Token {
 	#[error]
 	Error,
 }
+
+// tests
+
+#[cfg(test)]
+mod tests {
+	//TODO
+}

@@ -42,12 +42,11 @@ The character is then accessible with a call `$var`, where "var" is its name.
 if put after `$` that multiple characters shall be matched. Note that a range of numbers
 between 0 and 5 looks like this `(0)(1)(2)(3)(4)(5)`.
 + `+-*/` are arithmetic operators. They can only be used between numbers in brackets.
-A `*` before a bracket unpacks it.
 + `()` are used to focus evaluation. They can also be used as values, since they are matched
 as a single value.
 + `@` is used as a placeholder for user input from stdin.
 + `.` when used directly after `:` specifies that the output of that function is
-to be printed.
+to be printed. when used after `()` it unpacks the value.
 
 ### Parsing
 Sections of the syntax are divided by `|`.
