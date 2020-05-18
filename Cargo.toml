@@ -1,5 +1,5 @@
 [package]
-name = "smidscript"
+name = "sscript"
 version = "0.1.0"
 authors = ["Dawid J. Kubis <dawidkubis@hitler.rocks>"]
 edition = "2018"

@@ -11,7 +11,7 @@ This `|` is a pipe.
 Therefore `aaa|a:b` outputs "bbb".
 These ideas are extended further with inputs, match variables,
 ranges, math operations and debug calls.
-The language will be lazy, so that infinite arrays are possible.
+The language will probably be lazy, so that infinite arrays are possible.
 
 ## Language Description
 
@@ -54,13 +54,22 @@ Evaluation of a section is as follows: if there is a pattern, try matching it;
 else a function is constant and the value is to be stored, transferring it onto the next
 section. If matching is possible then for eatch possible match add output. No `$` variables
 may be empty in a match, if that is not possible that output matcherror.
+`$..` always matches as much as it possibly can.
 Outputs are evaluated using values, variables, math, inputs and with respect to brackets.
 If a function is marked as debug, the output is printed before it is passed.
 If a function does not pass, the output is printed.
-Ranges are lazily evaluated.
+Infinite ranges can only be used as constant functions.
+`$..` cannot be used to match an infinite range.
 
 ## TODO
 + lexer
 + parser
 + interactive mode
 + error messages
+
+## Planned versions
++ 0.2.0 - working matching and piping + interactive mode
++ 0.3.0 - working variables and math
++ 0.4.0 - working ranges, inputs and debugs
++ 1.0.0 - hopefully everything except infinite ranges working,
+they're gonna be tricky to implement.
