@@ -52,7 +52,7 @@ Sections of the syntax are divided by `|`.
 First, evaluation of the first section occurs.
 Evaluation of a section is as follows: if there is a pattern, try matching it;
 else a function is constant and the value is to be stored, transferring it onto the next
-section. If matching is possible then for eatch possible match add output. No `$` variables
+section. If matching is possible then for each possible match add output. No `$` variables
 may be empty in a match, if that is not possible that output matcherror.
 `$..` always matches as much as it possibly can.
 Outputs are evaluated using values, variables, math, inputs and with respect to brackets.
