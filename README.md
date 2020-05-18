@@ -16,13 +16,13 @@ The language will probably be lazy, so that infinite arrays are possible.
 ## Language Description
 
 ### Bottom level tokens
-+ `[a-zA-Z0-9]`
++ `a-zA-Z0-9`
 + `|`
 + `\`
 + `:`
 + `$`
 + `..`
-+ `[+-*/]`
++ `+-*/`
 + `[`
 + `]`
 + `(`
