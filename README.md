@@ -11,7 +11,7 @@ This `|` is a pipe.
 Therefore `aaa|a:b` outputs "bbb".
 These ideas are extended further with inputs, match variables,
 ranges, math operations and debug calls.
-The language will probably be lazy, so that infinite arrays are possible.
+Infinite arrays are a planned function, althought tricky to implement.
 
 ## Language Description
 
@@ -58,8 +58,6 @@ may be empty in a match, if that is not possible that output matcherror.
 Outputs are evaluated using values, variables, math, inputs and with respect to brackets.
 If a function is marked as debug, the output is printed before it is passed.
 If a function does not pass, the output is printed.
-Infinite ranges can only be used as constant functions.
-`$..` cannot be used to match an infinite range.
 
 ## TODO
 + lexer
