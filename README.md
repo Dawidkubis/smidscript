@@ -65,6 +65,7 @@ Infinite ranges can only be used as constant functions.
 + lexer
 + parser
 + interactive mode
++ comments?
 + error messages
 
 ## Planned versions
