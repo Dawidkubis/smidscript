@@ -34,12 +34,6 @@ enum Token {
 	#[token("/")]
 	Slash,
 
-	#[token("[")]
-	SqBracketLeft,
-
-	#[token("]")]
-	SqBracketRight,
-
 	#[token("(")]
 	BracketLeft,
 
