@@ -11,27 +11,28 @@ This `|` is a pipe.
 Therefore `aaa|a:b` outputs "bbb".
 These ideas are extended further with inputs, match variables,
 ranges, math operations and debug calls.
-The language will probably be lazy, so that infinite arrays are possible.
+Infinite arrays are a planned feature, althought tricky to implement.
+
+This repository will be dedicated to creating an interpreter for the language,
+I might create a compiler in the future.
 
 ## Language Description
 
 ### Bottom level tokens
-+ `[a-zA-Z0-9]`
++ `a-zA-Z0-9`
 + `|`
 + `\`
 + `:`
 + `$`
 + `..`
-+ `[+-*/]`
-+ `[`
-+ `]`
++ `+-*/`
 + `(`
 + `)`
 + `@`
 + `.`
 
 ### Token explanation
-+ `[a-zA-Z0-9]` are values
++ `a-zA-Z0-9` are values
 + `|` is a pipe, it's used to pass outputs to another function.
 + `\` is a backslash, used as an escape character.
 + `:` divides the match pattern from the output.
@@ -39,10 +40,11 @@ The language will probably be lazy, so that infinite arrays are possible.
 The character is then accessible with a call `$var`, where "var" is its name.
 + `..` is used to specify either: a range of numbers/letters or an infinite range or,
 if put after `$` that multiple characters shall be matched. Note that a range of numbers
-between 0 and 5 looks like this `[0][1][2][3][4][5]`.
-+ `[+-*/]` are arithmetic operators. They can only be used inside `[]`. 
-+ `[]` are either: values or specify that math will be done.
-+ `()` are used to focus evaluation.
+between 0 and 5 looks like this `(0)(1)(2)(3)(4)(5)`.
++ `+-*/` are arithmetic operators. They can only be used between numbers in brackets.
+A `*` before a bracket unpacks it.
++ `()` are used to focus evaluation. They can also be used as values, since they are matched
+as a single value.
 + `@` is used as a placeholder for user input from stdin.
 + `.` when used directly after `:` specifies that the output of that function is
 to be printed.
@@ -52,14 +54,12 @@ Sections of the syntax are divided by `|`.
 First, evaluation of the first section occurs.
 Evaluation of a section is as follows: if there is a pattern, try matching it;
 else a function is constant and the value is to be stored, transferring it onto the next
-section. If matching is possible then for eatch possible match add output. No `$` variables
+section. If matching is possible then for each possible match add output. No `$` variables
 may be empty in a match, if that is not possible that output matcherror.
 `$..` always matches as much as it possibly can.
 Outputs are evaluated using values, variables, math, inputs and with respect to brackets.
 If a function is marked as debug, the output is printed before it is passed.
 If a function does not pass, the output is printed.
-Infinite ranges can only be used as constant functions.
-`$..` cannot be used to match an infinite range.
 
 ## TODO
 + lexer
