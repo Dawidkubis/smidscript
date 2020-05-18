@@ -13,6 +13,9 @@ These ideas are extended further with inputs, match variables,
 ranges, math operations and debug calls.
 Infinite arrays are a planned function, althought tricky to implement.
 
+This repository will be dedicated to creating an interpreter for the language,
+I might create a compiler in the future.
+
 ## Language Description
 
 ### Bottom level tokens
