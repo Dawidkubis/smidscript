@@ -4,7 +4,7 @@ use logos::Logos;
 
 #[derive(Logos, Debug, PartialEq)]
 enum Token {
-	#[regex(r"[a-zA-Z0-9]")]
+	#[regex(r"[ a-zA-Z0-9]")]
 	Val,
 
 	#[token("|")]
@@ -33,12 +33,6 @@ enum Token {
 
 	#[token("/")]
 	Slash,
-
-	#[token("[")]
-	SqBracketLeft,
-
-	#[token("]")]
-	SqBracketRight,
 
 	#[token("(")]
 	BracketLeft,
