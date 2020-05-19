@@ -1,7 +1,5 @@
 use logos::Logos;
 
-// perhaps lower the amount of tokens?
-
 #[derive(Logos, Debug, PartialEq)]
 enum Token {
 	#[regex(r"[a-zA-Z0-9]")]
@@ -9,9 +7,6 @@ enum Token {
 
 	#[token("|")]
 	Pipe,
-
-	#[token("\\")]
-	BackSlash,
 
 	#[token(":")]
 	Sep,
@@ -22,17 +17,8 @@ enum Token {
 	#[token("..")]
 	DotDot,
 
-	#[token("+")]
-	Plus,
-
-	#[token("-")]
-	Minus,
-
-	#[token("*")]
-	Times,
-
-	#[token("/")]
-	Slash,
+	#[regex(r"[+-]")]
+	Operator,
 
 	#[token("(")]
 	BracketLeft,
@@ -58,19 +44,65 @@ mod tests {
 	use super::*;
 
 	#[test]
-	fn identity_func() {
+	fn usage_of_all_tokens() {
+		let mut lex = Token::lexer(
+			"@aaa | a:.s | $x: $x \n| ($x:$x) | $x: (4 + 3 - 2 | $x). | $..x : $x"
+			);
+		assert_eq!(lex.next(), Some(Token::At));
+		assert_eq!(lex.next(), Some(Token::Val));
+		assert_eq!(lex.next(), Some(Token::Val));
+		assert_eq!(lex.next(), Some(Token::Val));
 
-		let mut lex = Token::lexer("$x : $x");
+		assert_eq!(lex.next(), Some(Token::Pipe));
+
+		assert_eq!(lex.next(), Some(Token::Val));
+		assert_eq!(lex.next(), Some(Token::Sep));
+		assert_eq!(lex.next(), Some(Token::Dot));
+		assert_eq!(lex.next(), Some(Token::Val));
+
+		assert_eq!(lex.next(), Some(Token::Pipe));
+
 		assert_eq!(lex.next(), Some(Token::Dol));
 		assert_eq!(lex.next(), Some(Token::Val));
 		assert_eq!(lex.next(), Some(Token::Sep));
 		assert_eq!(lex.next(), Some(Token::Dol));
 		assert_eq!(lex.next(), Some(Token::Val));
-		assert_eq!(lex.next(), None);
-	}
 
-	#[test]
-	fn usage_of_all_tokens() {
-		//TODO
+		assert_eq!(lex.next(), Some(Token::Pipe));
+
+		assert_eq!(lex.next(), Some(Token::BracketLeft));
+		assert_eq!(lex.next(), Some(Token::Dol));
+		assert_eq!(lex.next(), Some(Token::Val));
+		assert_eq!(lex.next(), Some(Token::Sep));
+		assert_eq!(lex.next(), Some(Token::Dol));
+		assert_eq!(lex.next(), Some(Token::Val));
+		assert_eq!(lex.next(), Some(Token::BracketRight));
+
+		assert_eq!(lex.next(), Some(Token::Pipe));
+
+		assert_eq!(lex.next(), Some(Token::Dol));
+		assert_eq!(lex.next(), Some(Token::Val));
+		assert_eq!(lex.next(), Some(Token::Sep));
+		assert_eq!(lex.next(), Some(Token::BracketLeft));
+		assert_eq!(lex.next(), Some(Token::Val));
+		assert_eq!(lex.next(), Some(Token::Operator));
+		assert_eq!(lex.next(), Some(Token::Val));
+		assert_eq!(lex.next(), Some(Token::Operator));
+		assert_eq!(lex.next(), Some(Token::Val));
+		assert_eq!(lex.next(), Some(Token::Pipe));
+		assert_eq!(lex.next(), Some(Token::Dol));
+		assert_eq!(lex.next(), Some(Token::Val));
+		assert_eq!(lex.next(), Some(Token::BracketRight));
+		assert_eq!(lex.next(), Some(Token::Dot));
+
+		assert_eq!(lex.next(), Some(Token::Pipe));
+
+		assert_eq!(lex.next(), Some(Token::Dol));
+		assert_eq!(lex.next(), Some(Token::DotDot));
+		assert_eq!(lex.next(), Some(Token::Val));
+		assert_eq!(lex.next(), Some(Token::Sep));
+		assert_eq!(lex.next(), Some(Token::Dol));
+		assert_eq!(lex.next(), Some(Token::Val));
+
 	}
 }
