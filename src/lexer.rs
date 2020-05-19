@@ -4,7 +4,7 @@ use logos::Logos;
 
 #[derive(Logos, Debug, PartialEq)]
 enum Token {
-	#[regex(r"[ a-zA-Z0-9]")]
+	#[regex(r"[a-zA-Z0-9]")]
 	Val,
 
 	#[token("|")]
@@ -47,6 +47,7 @@ enum Token {
 	Dot,
 
 	#[error]
+	#[regex(r"[ \t\n\f]+", logos::skip)]
 	Error,
 }
 
@@ -54,5 +55,22 @@ enum Token {
 
 #[cfg(test)]
 mod tests {
-	//TODO
+	use super::*;
+
+	#[test]
+	fn identity_func() {
+
+		let mut lex = Token::lexer("$x : $x");
+		assert_eq!(lex.next(), Some(Token::Dol));
+		assert_eq!(lex.next(), Some(Token::Val));
+		assert_eq!(lex.next(), Some(Token::Sep));
+		assert_eq!(lex.next(), Some(Token::Dol));
+		assert_eq!(lex.next(), Some(Token::Val));
+		assert_eq!(lex.next(), None);
+	}
+
+	#[test]
+	fn usage_of_all_tokens() {
+		//TODO
+	}
 }
