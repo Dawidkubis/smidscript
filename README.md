@@ -16,6 +16,13 @@ Infinite arrays are a planned feature, althought tricky to implement.
 This repository will be dedicated to creating an interpreter for the language,
 I might create a compiler in the future.
 
+## Documentation
+Generating the documentation is done with:
+```
+cargo doc --open
+```
+inside the repository.
+
 ## Language Description
 
 ### Bottom level tokens
