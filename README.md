@@ -66,11 +66,9 @@ If a function is marked as debug, the output is printed before it is passed.
 If a function does not pass, the output is printed.
 
 ## TODO
-+ lexer
 + parser
 + interactive mode
 + comments?
-+ replace `anyhow` with `thiserror`
 + error messages
 
 ## Planned versions

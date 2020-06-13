@@ -11,6 +11,7 @@ struct Cla {
 
 mod lexer;
 mod parser;
+mod error;
 
 use parser::Ast;
 
