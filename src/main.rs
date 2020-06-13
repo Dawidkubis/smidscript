@@ -22,3 +22,11 @@ fn main() {
 		.parse()
 		.unwrap();
 }
+
+/// tests
+#[cfg(test)]
+mod tests {
+	fn eval_test() {
+
+	}
+}
