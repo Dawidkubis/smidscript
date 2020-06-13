@@ -1,4 +1,4 @@
-# smidscript
+# SmidScript
 esoteric programming language based on substitution
 
 The idea is to form a functional language based on substitution.
@@ -70,6 +70,7 @@ If a function does not pass, the output is printed.
 + parser
 + interactive mode
 + comments?
++ replace `anyhow` with `thiserror`
 + error messages
 
 ## Planned versions

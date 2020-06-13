@@ -1,8 +1,40 @@
-struct Brackets(Ast);
+use crate::lexer::Token;
 
-struct Ast(Vec<Func>);
+use std::str::FromStr;
 
-struct Func {
-	args: Option<Vec<>>,
+use anyhow::Error;
+
+pub enum Ast {
+	Func {
+		args: Option<Vec<Box<Ast>>>,
+		out: Vec<Box<Ast>>,
+		debug: bool,
+	},
+	Val(Token),
+	Var {
+		name: String,
+		multiple: bool,
+	},
 }
 
+impl FromStr for Ast {
+	type Err = Error;
+
+	fn from_str(s: &str) -> Result<Self, Self::Err>	{
+		let s = s.split("|");
+
+		unimplemented!();
+	}
+}
+
+impl Ast {
+	fn eval(&self) {
+
+	}
+}
+
+/// tests
+#[cfg(test)]
+mod tests {
+	use super::*;
+}

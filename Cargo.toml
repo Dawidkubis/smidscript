@@ -1,5 +1,5 @@
 [package]
-name = "sscript"
+name = "smidscript"
 version = "0.1.0"
 authors = ["Dawid J. Kubis <dawidkubis@hitler.rocks>"]
 edition = "2018"
@@ -9,3 +9,4 @@ edition = "2018"
 [dependencies]
 logos = "0.11.4"
 structopt = "0.3.14"
+anyhow = "1.0.31"

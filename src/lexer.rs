@@ -1,7 +1,7 @@
 use logos::Logos;
 
 #[derive(Logos, Debug, PartialEq)]
-enum Token {
+pub enum Token {
 	#[regex(r"[a-zA-Z0-9]")]
 	Val,
 
@@ -37,8 +37,7 @@ enum Token {
 	Error,
 }
 
-// tests
-
+/// tests
 #[cfg(test)]
 mod tests {
 	use super::*;
