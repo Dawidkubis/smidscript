@@ -29,17 +29,10 @@ pub enum Operator {
 	Minus,
 }
 
-enum State {
-	Normal,
-	Bracket,
-	Var,
-}
-
 use Ast::*;
 use Operator::*;
-use State::*;
 
-/// parsing
+/// parsing TODO
 impl Ast {
 	fn paarse(lex: Lexer<Token>) -> Result<Self, SmidError> {
 		let mut result = Func {
@@ -48,38 +41,42 @@ impl Ast {
 			debug: false,
 		};
 
-		let mut state = Normal;
-
 		result.add_func();
 
 		for i in lex {
-			match state {
-				Normal => match i {
-					Token::Val => result.add_deep(Val(i)),
-					Token::Pipe => result.add_func(),
-					Token::At => result.add_deep(Input),
-					Token::Operator => match lex.slice() {
-						"+" => result.add_deep(Oper(Plus)),
-						"-" => result.add_deep(Oper(Minus)),
-						_ =>
-							panic!(
-								"please email dawidkubis@hitler.rocks with text: \"idiot\""
-								),
-						}
-					Token::Sep => result.switch_for_args(),
-					Token::BracketLeft => (),
-					_ => (),
-					}
-				Bracket => match i {
-					
-				},
-				Var => match i {
+			match i {
+				Token::Val => result.add_deep(Val(i)),
+				Token::Pipe => result.add_func(),
+				Token::At => result.add_deep(Input),
+				Token::Operator => match lex.slice() {
+					"+" => result.add_deep(Oper(Plus)),
+					"-" => result.add_deep(Oper(Minus)),
+					_ =>
+						panic!(
+							"please email dawidkubis@hitler.rocks with text: \"idiot\""
+						),
+				}
+				Token::Sep => result.switch_for_args(),
+				Token::BracketLeft => {
+					// FIXME no idea how to tho
+					let temp = lex.remainder().split(")").next().unwrap();
+					lex.take_while(|&x| x != Token::BracketRight);
 
+					if Token::BracketRight != lex.next().unwrap() {
+						println!("lol");
+					}
+
+					result.add_deep(
+						Self::paarse(Token::lexer(temp)).unwrap()
+						);
 				},
+				_ => (),
+				
 			}
 		}
 
 		unimplemented!();
+
 	}
 }
 
