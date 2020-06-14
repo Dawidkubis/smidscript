@@ -44,6 +44,8 @@ impl Ast {
 		result.add_func();
 
 		for i in lex {
+			// TODO change to while clause - this will fix the
+			// problem mentioned below
 			match i {
 				Token::Val => result.add_deep(Val(i)),
 				Token::Pipe => result.add_func(),
@@ -59,6 +61,9 @@ impl Ast {
 				Token::Sep => result.switch_for_args(),
 				Token::BracketLeft => {
 					// FIXME no idea how to tho
+					// try a copy over the lexer
+					// ik its wasting memory but it might be
+					// the best way
 					let temp = lex.remainder().split(")").next().unwrap();
 					lex.take_while(|&x| x != Token::BracketRight);
 
@@ -70,6 +75,7 @@ impl Ast {
 						Self::paarse(Token::lexer(temp)).unwrap()
 						);
 				},
+				Token::Dot => result.add_deep(Dot),
 				_ => (),
 				
 			}
