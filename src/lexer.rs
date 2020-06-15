@@ -1,4 +1,4 @@
-use logos::Logos;
+use logos::{Logos, Lexer};
 
 #[derive(Logos, Debug, PartialEq, Clone)]
 pub enum Token {
@@ -32,9 +32,35 @@ pub enum Token {
 	#[token(".")]
 	Dot,
 
+	#[token(" ")]
+	Space,
+
 	#[error]
-	#[regex(r"[ \t\n\f]+", logos::skip)]
+	#[regex(r"[\t\n\f]+", logos::skip)]
 	Error,
+}
+
+// TODO generalise
+pub struct Luthor<'a> {
+	lex: Lexer<'a, Token>,
+}
+
+impl<'a> Luthor<'a> {
+	pub fn new(lex: Lexer<'a, Token>) -> Self {
+		Self { lex }
+	}
+}
+
+impl<'a> Iterator for Luthor<'a> {
+	type Item = (Token, &'a str);
+
+	fn next(&mut self) -> Option<Self::Item> {
+		if let Some(s) = self.lex.next() {
+			Some((s, self.lex.slice()))
+		} else {
+			None
+		}
+	}
 }
 
 /// tests

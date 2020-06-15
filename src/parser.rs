@@ -1,4 +1,4 @@
-use crate::lexer::Token;
+use crate::lexer::{Token, Luthor};
 use crate::error::SmidError;
 
 use std::str::FromStr;
@@ -13,7 +13,7 @@ pub enum Ast {
 		out: Vec<Box<Ast>>,
 		debug: bool,
 	},
-	Val(Token),
+	Val(String),
 	Var {
 		name: String,
 		multiple: bool,
@@ -34,7 +34,7 @@ use Operator::*;
 
 /// parsing TODO
 impl Ast {
-	fn paarse(lex: Lexer<Token>) -> Result<Self, SmidError> {
+	fn paarse(lex: Luthor) -> Result<Self, SmidError> {
 		let mut result = Func {
 			args: None,
 			out: vec![],
@@ -43,14 +43,12 @@ impl Ast {
 
 		result.add_func();
 
-		for i in lex {
-			// TODO change to while clause - this will fix the
-			// problem mentioned below
-			match i {
-				Token::Val => result.add_deep(Val(i)),
+		for (token, val) in lex {
+			match token {
+				Token::Val => result.add_deep(Val(val.to_string())),
 				Token::Pipe => result.add_func(),
 				Token::At => result.add_deep(Input),
-				Token::Operator => match lex.slice() {
+				Token::Operator => match val {
 					"+" => result.add_deep(Oper(Plus)),
 					"-" => result.add_deep(Oper(Minus)),
 					_ =>
@@ -61,9 +59,8 @@ impl Ast {
 				Token::Sep => result.switch_for_args(),
 				Token::BracketLeft => {
 					// FIXME no idea how to tho
-					// try a copy over the lexer
-					// ik its wasting memory but it might be
-					// the best way
+					// Iterator with values?
+					// 
 					let temp = lex.remainder().split(")").next().unwrap();
 					lex.take_while(|&x| x != Token::BracketRight);
 
@@ -76,6 +73,7 @@ impl Ast {
 						);
 				},
 				Token::Dot => result.add_deep(Dot),
+				Token::Error => (), //TODO
 				_ => (),
 				
 			}
@@ -93,7 +91,7 @@ impl FromStr for Ast {
 	fn from_str(s: &str) -> Result<Self, Self::Err>	{
 		let lex = Token::lexer(s);
 
-		Self::paarse(lex)
+		Self::paarse(Luthor::new(lex))
 	}
 }
 
