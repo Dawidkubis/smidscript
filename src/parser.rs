@@ -34,7 +34,7 @@ use Operator::*;
 
 /// parsing TODO
 impl Ast {
-	fn paarse(lex: Luthor) -> Result<Self, SmidError> {
+	fn paarse<'a>(mut lex: impl Iterator<Item=(Token, &'a str)>) -> Result<Self, SmidError> {
 		let mut result = Func {
 			args: None,
 			out: vec![],
@@ -43,7 +43,7 @@ impl Ast {
 
 		result.add_func();
 
-		for (token, val) in lex {
+		while let Some((token, val)) = lex.next() {
 			match token {
 				Token::Val => result.add_deep(Val(val.to_string())),
 				Token::Pipe => result.add_func(),
@@ -58,19 +58,11 @@ impl Ast {
 				}
 				Token::Sep => result.switch_for_args(),
 				Token::BracketLeft => {
-					// FIXME no idea how to tho
-					// Iterator with values?
-					// 
-					let temp = lex.remainder().split(")").next().unwrap();
-					lex.take_while(|&x| x != Token::BracketRight);
+					let temp = vec![];
 
-					if Token::BracketRight != lex.next().unwrap() {
-						println!("lol");
-					}
+					// TODO
 
-					result.add_deep(
-						Self::paarse(Token::lexer(temp)).unwrap()
-						);
+					result.add_deep(Self::paarse(temp.into_iter())?);
 				},
 				Token::Dot => result.add_deep(Dot),
 				Token::Error => (), //TODO
